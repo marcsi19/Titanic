@@ -8,7 +8,7 @@ class Main extends Component {
   }
 
   render() {
-    return <div>Hello World!</div>;
+    return <div className="cool">Hello World!!!</div>;
   }
 }
 export default Main;

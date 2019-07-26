@@ -1,5 +1,8 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
 module.exports = {
   entry: {
     main: "./src/index.js"
@@ -11,6 +14,9 @@ module.exports = {
   },
   target: "web",
   devtool: "#source-map",
+  optimization: {
+    minimizer: [new OptimizeCSSAssetsPlugin({})]
+  },
   module: {
     rules: [
       {
@@ -31,6 +37,17 @@ module.exports = {
             options: { minimize: true }
           }
         ]
+      },
+      {
+        // Loads images into CSS and Javascript files
+        test: /\.jpg$/,
+        use: [{ loader: "url-loader" }]
+      },
+      {
+        // Loads CSS into a file when you import it via Javascript
+        // Rules are set in MiniCssExtractPlugin
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       }
     ]
   },
@@ -38,6 +55,10 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./src/index.html",
       filename: "./index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
     })
   ]
 };
