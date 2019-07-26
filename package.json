@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
-    "build": "webpack --mode production",
-    "test": "mocha \"./src/**/*.spec.js\" --require @babel/register"
+    "start": "node ./dist/server.js",
+    "build": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
+    "test": "mocha \"./src/js/components/*.spec.js\" --require @babel/register"
   },
   "keywords": [],
   "author": "",
@@ -23,14 +23,22 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mocha": "^6.2.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.0",
+    "pg-hstore": "^2.3.3",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.8.6",
+    "sequelize": "^5.10.3",
     "supertest": "^4.0.2",
     "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.7.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   }
